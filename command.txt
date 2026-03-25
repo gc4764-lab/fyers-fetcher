@@ -1,0 +1,26 @@
+go mod init fyers-fetcher
+go get github.com/go-resty/resty/v2
+
+
+# Build the container image
+podman build -t fyers-data-fetcher .
+
+# Run the container
+podman run --rm fyers-data-fetcher
+
+
+podman run -d \
+  --name trading-postgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=supersecret \
+  -e POSTGRES_DB=swing_trading \
+  -p 5432:5432 \
+  docker.io/library/postgres:15-alpine
+
+
+
+go get gorm.io/gorm
+go get gorm.io/driver/postgres
+
+
+
